@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Http;
-
+use Illuminate\Http\Request;
 
 class MovimientosController extends Controller
 {
@@ -34,11 +34,11 @@ class MovimientosController extends Controller
 
     public function eliminar(Request $request)
 {
-    $id = $request->id_movimiento;
+    $id = $request->input('id');
 
     try {
         $response = Http::delete("http://localhost:8080/eliminarMovimiento", [
-            "id_movimiento" => $id
+            "id_movimiento" => (int)$id
         ]);
 
         if ($response->failed()) {

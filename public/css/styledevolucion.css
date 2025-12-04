@@ -1,113 +1,309 @@
+/* ------------------------- */
+/*        CONFIG GLOBAL      */
+/* ------------------------- */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f9fefe;
-  color: #333;
-  padding: 40px 20px;
-  text-align: center;
+    font-family: 'Poppins', sans-serif;
+    background: #f4f7fb;
+    color: #333;
+    padding: 20px;
 }
 
-h1, h2 {
-  color: #342683;
-  margin-bottom: 20px;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ------------------------- */
+/*        BOTÓN VOLVER       */
+/* ------------------------- */
+.volver-arriba {
+    margin-bottom: 20px;
+}
+
+.btn-volver {
+    display: inline-block;
+    padding: 10px 16px;
+    text-decoration: none;
+    background: linear-gradient(90deg, #6c63ff, #8f6bff);
+    color: white;
+    font-weight: 600;
+    border-radius: 10px;
+    box-shadow: 0px 3px 10px rgba(108, 99, 255, 0.3);
+    transition: transform 0.15s ease;
+}
+
+.btn-volver:hover {
+    transform: translateY(-2px);
+}
+
+/* ------------------------- */
+/*          TÍTULO           */
+/* ------------------------- */
+.titulo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 32px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+.titulo .icon {
+    color: #ff6b6b;
+}
+
+.subtitulo {
+    font-size: 22px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+/* ------------------------- */
+/*          ALERTAS          */
+/* ------------------------- */
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 12px 15px;
+    border-left: 5px solid #28a745;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.alert-error {
+    background: #ffe3e3;
+    color: #b10e0e;
+    padding: 12px 15px;
+    border-left: 5px solid #ff4d4d;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+/* ------------------------- */
+/*        FORMULARIO         */
+/* ------------------------- */
+.formulario-container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.08);
+    margin-bottom: 40px;
 }
 
 .formulario-devolucion {
-  max-width: 600px;
-  margin: 0 auto 40px;
-  padding: 20px;
-  background-color: #edebff;
-  border: 2px solid #18113f;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.formulario-devolucion label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-  color: #333;
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
-.formulario-devolucion input,
-.formulario-devolucion textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 14px;
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.formulario-devolucion button {
-  width: 100%;
-  background-color: #000000;
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
-  font-weight: bold;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.form-group.full-width {
+    grid-column: 1 / -1;
 }
 
-.formulario-devolucion button:hover {
-  background-color: #d97706;
+.form-group label {
+    font-weight: 600;
+    color: #444;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-table {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto 40px;
-  border-collapse: collapse;
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
+.form-group label svg {
+    color: #ff6b6b;
 }
 
-thead {
-  background-color: #18113f;
-  color: white;
+.form-group input,
+.form-group textarea {
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.2s ease;
 }
 
-thead th {
-  padding: 15px;
-  font-size: 16px;
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #ff6b6b;
 }
 
-tbody td {
-  padding: 14px;
-  border-bottom: 1px solid #eee;
-  font-size: 15px;
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
 }
 
-tbody tr:hover {
-  background-color: #fff6e5;
+/* ------------------------- */
+/*    BOTONES FORMULARIO     */
+/* ------------------------- */
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
 }
 
-.volver {
-  margin-top: 20px;
+.btn-submit,
+.btn-cancel {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.volver a {
-  display: inline-block;
-  background-color: #000000;
-  color: white;
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 10px;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+.btn-submit {
+    background: linear-gradient(90deg, #ff6b6b, #ffa36c);
+    color: white;
+    box-shadow: 0px 3px 10px rgba(255, 107, 107, 0.3);
 }
 
-.volver a:hover {
-  background-color: #717177;
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 14px rgba(255, 107, 107, 0.4);
+}
+
+.btn-cancel {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-cancel:hover {
+    background: #5a6268;
+}
+
+/* ------------------------- */
+/*           TABLA           */
+/* ------------------------- */
+.tabla-section {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+.tabla-container {
+    overflow-x: auto;
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.tabla thead th {
+    background: linear-gradient(90deg, #ff6b6b, #ffa36c);
+    color: white;
+    padding: 14px;
+    font-size: 15px;
+    text-align: left;
+    letter-spacing: 0.5px;
+}
+
+.tabla tbody tr {
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s ease;
+}
+
+.tabla tbody tr:hover {
+    background: #fff7f0;
+}
+
+.tabla td {
+    padding: 14px;
+    font-size: 14px;
+    color: #444;
+}
+
+.no-data {
+    text-align: center;
+    padding: 30px;
+    color: #777;
+    font-style: italic;
+}
+
+/* ------------------------- */
+/*    BOTONES DE ACCIÓN      */
+/* ------------------------- */
+.acciones {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn-edit,
+.btn-delete {
+    padding: 7px 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    font-weight: 500;
+}
+
+.btn-edit {
+    background: #ffc107;
+    color: #333;
+}
+
+.btn-edit:hover {
+    background: #ffb300;
+    transform: translateY(-2px);
+}
+
+.btn-delete {
+    background: #ff4d4d;
+    color: white;
+}
+
+.btn-delete:hover {
+    background: #ff1f1f;
+    transform: translateY(-2px);
+}
+
+/* ------------------------- */
+/*        RESPONSIVE         */
+/* ------------------------- */
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .titulo {
+        font-size: 24px;
+    }
+
+    .formulario-container,
+    .tabla-section {
+        padding: 20px;
+    }
+
+    .acciones {
+        flex-direction: column;
+    }
 }
