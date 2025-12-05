@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MovimientosController;
 use App\Http\Controllers\DevolucionesController;
+use App\Http\Controllers\UsuariosController; 
 
 
 Route::get('/', function () {
@@ -49,3 +50,23 @@ Route::post('/devoluciones/actualizar', [DevolucionesController::class, 'update'
 
 Route::post('/devoluciones/eliminar', [DevolucionesController::class, 'destroy'])
     ->name('devoluciones.destroy');
+
+
+    
+// USUARIOS
+Route::get('/modulo-usuarios', function () {
+    return view('Modulo-usuarios.modulo-usuarios');
+})->name('modulo.usuarios');
+
+// GESTION DE USUARIOS (CRUD)
+Route::get('/gestion-usuarios', [UsuariosController::class, 'index'])
+    ->name('usuarios.gestion');
+
+Route::post('/usuarios/crear', [UsuariosController::class, 'store'])
+    ->name('usuarios.store');
+
+Route::post('/usuarios/actualizar', [UsuariosController::class, 'update'])
+    ->name('usuarios.update');
+
+Route::post('/usuarios/eliminar', [UsuariosController::class, 'destroy'])
+    ->name('usuarios.destroy');
