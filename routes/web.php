@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MovimientosController;
 use App\Http\Controllers\DevolucionesController;
 use App\Http\Controllers\UsuariosController; 
-
+use App\Http\Controllers\ProveedoresController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -53,12 +53,12 @@ Route::post('/devoluciones/eliminar', [DevolucionesController::class, 'destroy']
 
 
     
-// USUARIOS
+// MODULO USUARIOS
 Route::get('/modulo-usuarios', function () {
     return view('Modulo-usuarios.modulo-usuarios');
 })->name('modulo.usuarios');
 
-// GESTION DE USUARIOS (CRUD)
+//  USUARIOS 
 Route::get('/gestion-usuarios', [UsuariosController::class, 'index'])
     ->name('usuarios.gestion');
 
@@ -70,3 +70,16 @@ Route::post('/usuarios/actualizar', [UsuariosController::class, 'update'])
 
 Route::post('/usuarios/eliminar', [UsuariosController::class, 'destroy'])
     ->name('usuarios.destroy');
+
+    // PROVEEDORES
+Route::get('/gestion-proveedores', [ProveedoresController::class, 'index'])
+    ->name('proveedores.gestion');
+
+Route::post('/proveedores/crear', [ProveedoresController::class, 'store'])
+    ->name('proveedores.store');
+
+Route::post('/proveedores/actualizar', [ProveedoresController::class, 'update'])
+    ->name('proveedores.update');
+
+Route::post('/proveedores/eliminar', [ProveedoresController::class, 'destroy'])
+    ->name('proveedores.destroy');
