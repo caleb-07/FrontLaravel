@@ -14,11 +14,9 @@ class ProductoController extends Controller
         $this->productoService = new ProductoService();
     }
 
-  
+    // Consultar inventario
     public function consultar()
     {
-   
-    
         $mensaje = "";
         $productos = $this->productoService->obtenerProductos();
 
@@ -31,35 +29,60 @@ class ProductoController extends Controller
     // Actualizar producto
     public function actualizar(Request $request)
     {
+        $request->validate([
+            'id' => 'required|integer|min:1',
+            'nombre' => 'required|string|max:255',
+            'precio' => 'required|numeric|min:0.01',
+            'stockMinimo' => 'required|integer|min:0',
+            'stockMaximo' => 'required|integer|min:0',
+            'stockActual' => 'required|integer|min:0',
+            'idCategoria' => 'required|integer|min:1',
+            'idProveedor' => 'required|integer|min:1',
+            'estado' => 'required|in:0,1'
+        ], [
+            'nombre.required' => 'El nombre es obligatorio.',
+            'precio.required' => 'El precio es obligatorio.',
+            'precio.min' => 'El precio debe ser mayor a 0.',
+            'stockMinimo.required' => 'El stock mínimo es obligatorio.',
+            'stockMaximo.required' => 'El stock máximo es obligatorio.',
+            'stockActual.required' => 'El stock actual es obligatorio.',
+        ]);
+
+        $id = $request->input('id');
         $mensaje = "";
         $tipo_mensaje = 'error';
 
-        $id = intval($request->input('id', 0));
-        $nombre = trim($request->input('nombre', ''));
-        $precio = floatval($request->input('precio', 0));
+        // Validaciones adicionales
+        if ($request->input('stockMinimo') > $request->input('stockMaximo')) {
+            return redirect()->back()->with('error', 'El stock mínimo no puede ser mayor al stock máximo.');
+        }
 
-        if ($id > 0 && !empty($nombre)) {
-            $producto = [
-                "nombre" => $nombre,
-                "precio" => $precio,
-                "stock" => intval($request->input('stock', 0)),
-                "stockMinimo" => intval($request->input('stockMinimo', 0)),
-                "stockMaximo" => intval($request->input('stockMaximo', 0)),
-                "stockActual" => intval($request->input('stockActual', 0)),
-                "idCategoria" => intval($request->input('idCategoria', 0)),
-                "idProveedor" => intval($request->input('idProveedor', 0)),
-                "estado" => $request->input('estado', '1')
-            ];
+        if ($request->input('stockActual') < $request->input('stockMinimo')) {
+            $mensaje = " ⚠️ ADVERTENCIA: El stock actual está por debajo del mínimo.";
+        }
 
-            $resultado = $this->productoService->actualizarProducto($id, $producto);
+        if ($request->input('stockActual') > $request->input('stockMaximo')) {
+            $mensaje = " ⚠️ ADVERTENCIA: El stock actual excede el máximo permitido.";
+        }
 
-            $mensaje = $resultado["success"]
-                ? "Producto actualizado correctamente."
-                : "Error: " . ($resultado['error'] ?? 'Desconocido');
+        $producto = [
+            "nombre" => $request->input('nombre'),
+            "precio" => $request->input('precio'),
+            "stockMinimo" => $request->input('stockMinimo'),
+            "stockMaximo" => $request->input('stockMaximo'),
+            "stockActual" => $request->input('stockActual'),
+            "idCategoria" => $request->input('idCategoria'),
+            "idProveedor" => $request->input('idProveedor'),
+            "estado" => $request->input('estado')
+        ];
 
-            $tipo_mensaje = $resultado["success"] ? 'success' : 'error';
+        $resultado = $this->productoService->actualizarProducto($id, $producto);
+
+        if ($resultado["success"]) {
+            $tipo_mensaje = 'success';
+            $mensaje = "✓ Producto actualizado correctamente." . $mensaje;
         } else {
-            $mensaje = "Datos inválidos.";
+            $mensaje = "Error: " . ($resultado['error'] ?? 'Desconocido');
         }
 
         $productos = $this->productoService->obtenerProductos();
@@ -93,14 +116,17 @@ class ProductoController extends Controller
                 $productoActual['estado'] = '0';
                 $resultado = $this->productoService->actualizarProducto($id, $productoActual);
 
-                $mensaje = $resultado["success"]
-                    ? "Producto desactivado correctamente."
-                    : "Error: " . ($resultado['error'] ?? 'Desconocido');
-
-                $tipo_mensaje = $resultado["success"] ? 'success' : 'error';
+                if ($resultado["success"]) {
+                    $mensaje = "✓ Producto desactivado correctamente.";
+                    $tipo_mensaje = 'success';
+                } else {
+                    $mensaje = "Error: " . ($resultado['error'] ?? 'Desconocido');
+                }
             } else {
                 $mensaje = "Producto no encontrado.";
             }
+        } else {
+            $mensaje = "ID de producto inválido.";
         }
 
         $productos = $this->productoService->obtenerProductos();

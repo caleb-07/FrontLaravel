@@ -1,3 +1,4 @@
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -10,25 +11,31 @@ html, body {
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #4e54c8 100%);
+  background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5)), 
+              linear-gradient(135deg, #667eea 0%, #764ba2 50%, #4e54c8 100%);
   background-attachment: fixed;
+  background-size: cover;
   color: white;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding: 20px;
 }
 
+/* HEADER */
 header {
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
   color: white;
   padding: 25px 20px;
   text-align: center;
+  margin-bottom: 30px;
 }
 
 header h1 {
-  font-size: 28px;
+  font-size: 2.5rem;
   color: white;
   font-weight: 700;
   text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
@@ -38,16 +45,18 @@ header h1 {
   gap: 10px;
 }
 
+/* MAIN CONTAINER */
 main {
   flex: 1;
-  padding: 40px 20px;
-  max-width: 1200px;
+  padding: 20px;
+  max-width: 1400px;
   margin: 0 auto;
   width: 100%;
 }
 
+/* SECCIONES */
 h2 {
-  font-size: 22px;
+  font-size: 1.8rem;
   color: white;
   margin: 30px 0 20px 0;
   padding-bottom: 10px;
@@ -56,6 +65,7 @@ h2 {
   text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
 }
 
+/* MENSAJES DE ÉXITO Y ERROR */
 p[style*="color:green"],
 p[style*="color:red"] {
   padding: 16px 20px;
@@ -82,8 +92,13 @@ div[style*="color:red"] {
   border: 1px solid rgba(220, 53, 69, 0.5) !important;
   color: #ffb3ba !important;
   backdrop-filter: blur(15px);
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  font-weight: 500;
 }
 
+/* LISTAS */
 ul {
   list-style: none;
   margin-bottom: 30px;
@@ -107,10 +122,11 @@ ul li:hover {
 }
 
 ul li b {
-  color: rgba(255, 255, 255, 0.9);
+  color: white;
   font-weight: 600;
 }
 
+/* FORMULARIOS */
 form {
   width: 100%;
   background: rgba(255, 255, 255, 0.1);
@@ -134,10 +150,12 @@ form label {
 form input[type="text"],
 form input[type="number"],
 form input[type="email"],
-form select {
+form input[type="date"],
+form select,
+form textarea {
   width: 100%;
   padding: 12px 15px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 10px;
@@ -145,26 +163,30 @@ form select {
   font-size: 14px;
   margin-bottom: 20px;
   transition: all 0.3s ease;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-form input::placeholder {
+form input::placeholder,
+form textarea::placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
 
 form input:focus,
-form select:focus {
+form select:focus,
+form textarea:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.25);
   border-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
 }
 
 form select option {
-  background: rgba(50, 50, 50, 0.95);
+  background: rgba(50, 50, 80, 0.95);
   color: white;
 }
 
-form button {
+/* BOTONES DE FORMULARIO */
+form button[type="submit"] {
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
   padding: 14px 28px;
@@ -176,25 +198,29 @@ form button {
   transition: all 0.3s ease;
   width: 100%;
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-form button:hover {
+form button[type="submit"]:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
 }
 
+/* INFO PRODUCTO */
 #infoProducto {
   background: rgba(255, 255, 255, 0.15) !important;
   backdrop-filter: blur(15px) !important;
   border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  padding: 15px !important;
+  padding: 20px !important;
   border-radius: 12px !important;
   margin-bottom: 20px !important;
 }
 
 #infoProducto p {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   color: rgba(255, 255, 255, 0.95);
+  font-size: 15px;
 }
 
 #infoProducto b {
@@ -202,9 +228,11 @@ form button:hover {
   font-weight: 600;
 }
 
+/* TABLAS */
 div[style*="overflow-x"] {
   overflow-x: auto;
   border-radius: 12px;
+  margin-bottom: 30px;
 }
 
 table {
@@ -218,7 +246,7 @@ table {
 }
 
 thead {
-  background: rgba(255, 255, 255, 0.15) !important;
+  background: rgba(255, 255, 255, 0.2) !important;
   backdrop-filter: blur(20px);
 }
 
@@ -226,9 +254,11 @@ thead th {
   padding: 15px 12px !important;
   text-align: left !important;
   color: white !important;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 14px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 tbody tr {
@@ -238,7 +268,7 @@ tbody tr {
 }
 
 tbody tr:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.15) !important;
 }
 
 tbody td {
@@ -248,48 +278,67 @@ tbody td {
   background: transparent !important;
 }
 
+/* BADGES DE ESTADO */
 tbody td span[style*="background-color"] {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 12px;
 }
 
+/* BOTONES DE ACCIÓN EN TABLAS - TRANSLÚCIDOS */
 button[onclick*="editarProducto"],
-button[style*="background-color: #f5a623"] {
-  background: linear-gradient(135deg, #ffc107, #ff9800) !important;
-  color: #000 !important;
-  border: none !important;
+button[style*="background-color: #f5a623"],
+button[style*="background-color:#f5a623"] {
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
   padding: 8px 18px !important;
   border-radius: 10px !important;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-right: 5px;
+  margin-right: 8px;
+  font-size: 13px;
 }
 
 button[onclick*="editarProducto"]:hover,
-button[style*="background-color: #f5a623"]:hover {
+button[style*="background-color: #f5a623"]:hover,
+button[style*="background-color:#f5a623"]:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
 }
 
 button[onclick*="desactivarProducto"],
-button[style*="background-color: #d9534f"] {
-  background: linear-gradient(135deg, #dc3545, #c82333) !important;
-  color: white !important;
-  border: none !important;
+button[onclick*="eliminar"],
+button[style*="background-color: #d9534f"],
+button[style*="background-color:#d9534f"] {
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
   padding: 8px 18px !important;
   border-radius: 10px !important;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 13px;
 }
 
 button[onclick*="desactivarProducto"]:hover,
-button[style*="background-color: #d9534f"]:hover {
+button[onclick*="eliminar"]:hover,
+button[style*="background-color: #d9534f"]:hover,
+button[style*="background-color:#d9534f"]:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
 }
 
+/* MODAL */
 #modalEditar {
   backdrop-filter: blur(10px);
   background-color: rgba(0,0,0,0.8) !important;
@@ -299,16 +348,21 @@ button[style*="background-color: #d9534f"]:hover {
   background: rgba(255, 255, 255, 0.1) !important;
   backdrop-filter: blur(20px) !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
 }
 
 #modalEditar button[type="button"] {
-  background: rgba(108, 117, 125, 0.5);
+  background: rgba(108, 117, 125, 0.5) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 #modalEditar button[type="button"]:hover {
-  background: rgba(108, 117, 125, 0.7);
+  background: rgba(108, 117, 125, 0.7) !important;
 }
 
+/* BOTÓN VOLVER */
 .volver {
   margin-top: 25px;
   text-align: center;
@@ -320,40 +374,102 @@ button[style*="background-color: #d9534f"]:hover {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
-  padding: 10px 20px;
+  padding: 12px 25px;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   border-radius: 25px;
   transition: all 0.3s ease;
+  font-size: 14px;
 }
 
 .volver a:hover {
   background: rgba(255, 255, 255, 0.25);
   transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
 }
 
+/* FOOTER */
 footer {
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(20px);
   border-top: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
+  color: rgba(255, 255, 255, 0.8);
   text-align: center;
-  padding: 15px;
+  padding: 20px;
   font-size: 14px;
+  margin-top: 40px;
+  border-radius: 20px 20px 0 0;
 }
 
+footer p {
+  margin: 0;
+}
+
+/* ANIMACIONES */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+header {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+form {
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+table {
+  animation: fadeInUp 0.6s ease-out 0.3s both;
+}
+
+/* RESPONSIVE */
 @media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
   header h1 {
-    font-size: 22px;
+    font-size: 1.8rem;
   }
+
   main {
-    padding: 20px 15px;
+    padding: 15px 10px;
   }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  form {
+    padding: 20px;
+  }
+
   table {
     font-size: 12px;
   }
+
   thead th,
   tbody td {
     padding: 8px !important;
+    font-size: 12px;
+  }
+
+  button[onclick*="editarProducto"],
+  button[onclick*="desactivarProducto"] {
+    padding: 6px 12px !important;
+    font-size: 11px;
+    margin-bottom: 5px;
+  }
+
+  .volver a {
+    padding: 10px 20px;
+    font-size: 13px;
   }
 }
