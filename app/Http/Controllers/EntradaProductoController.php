@@ -33,6 +33,10 @@ class EntradaProductoController extends Controller
         $request->validate([
             'idProducto' => 'required|integer|min:1',
             'cantidadAgregar' => 'required|integer|min:1'
+        ], [
+            'idProducto.required' => 'Debe seleccionar un producto.',
+            'cantidadAgregar.required' => 'Debe ingresar una cantidad.',
+            'cantidadAgregar.min' => 'La cantidad debe ser al menos 1.'
         ]);
 
         $idProducto = $request->input('idProducto');
@@ -52,19 +56,21 @@ class EntradaProductoController extends Controller
             return redirect()->back()->with('error', 'Producto no encontrado.');
         }
 
-        // Actualizar stock
-        $productoActual['stock'] += $cantidadAgregar;
-        $productoActual['stockActual'] += $cantidadAgregar;
+        // Solo actualizar stockActual (eliminamos la línea de stock)
+        $nuevoStockActual = $productoActual['stockActual'] + $cantidadAgregar;
 
+        // Validar si excede el máximo
         $advertencia = "";
-        if ($productoActual['stockActual'] > $productoActual['stockMaximo']) {
-            $advertencia = " ADVERTENCIA: La entrada excede el stock máximo permitido.";
+        if ($nuevoStockActual > $productoActual['stockMaximo']) {
+            $advertencia = " ⚠️ ADVERTENCIA: La entrada excede el stock máximo permitido ({$productoActual['stockMaximo']}).";
         }
+
+        $productoActual['stockActual'] = $nuevoStockActual;
 
         $resultado = $this->productoService->actualizarProducto($idProducto, $productoActual);
 
         if ($resultado["success"]) {
-            return redirect()->back()->with('success', "Entrada registrada correctamente. Nuevo stock: {$productoActual['stockActual']}{$advertencia}");
+            return redirect()->back()->with('success', "✓ Entrada registrada correctamente. Nuevo stock: {$nuevoStockActual}{$advertencia}");
         } else {
             return redirect()->back()->with('error', "Error: {$resultado['error']}");
         }

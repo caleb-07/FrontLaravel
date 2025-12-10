@@ -18,7 +18,7 @@ class SalidaProductoController extends Controller
     {
         $todosProductos = $this->productoService->obtenerProductos();
         
-        
+        // Filtrar solo productos activos
         $productosActivos = array_filter($todosProductos, function($p) {
             return $p['estado'] == '1';
         });
@@ -33,6 +33,10 @@ class SalidaProductoController extends Controller
         $request->validate([
             'idProducto' => 'required|integer|min:1',
             'cantidadRetirar' => 'required|integer|min:1'
+        ], [
+            'idProducto.required' => 'Debe seleccionar un producto.',
+            'cantidadRetirar.required' => 'Debe ingresar una cantidad.',
+            'cantidadRetirar.min' => 'La cantidad debe ser al menos 1.'
         ]);
 
         $idProducto = $request->input('idProducto');
@@ -52,24 +56,28 @@ class SalidaProductoController extends Controller
             return redirect()->back()->with('error', 'Producto no encontrado.');
         }
 
-        
+        // Validar stock suficiente
         if ($productoActual['stockActual'] < $cantidadRetirar) {
-            return redirect()->back()->with('error', "Stock insuficiente. Stock actual: {$productoActual['stockActual']}, solicitado: {$cantidadRetirar}");
+            return redirect()->back()
+                ->withInput()
+                ->with('error', "❌ Stock insuficiente. Disponible: {$productoActual['stockActual']}, Solicitado: {$cantidadRetirar}");
         }
 
-        
-        $productoActual['stock'] -= $cantidadRetirar;
-        $productoActual['stockActual'] -= $cantidadRetirar;
+        // Solo actualizar stockActual (eliminamos la línea de stock)
+        $nuevoStockActual = $productoActual['stockActual'] - $cantidadRetirar;
 
+        // Verificar si queda por debajo del mínimo
         $advertencia = "";
-        if ($productoActual['stockActual'] < $productoActual['stockMinimo']) {
-            $advertencia = " ADVERTENCIA: El stock está por debajo del mínimo requerido.";
+        if ($nuevoStockActual < $productoActual['stockMinimo']) {
+            $advertencia = " ⚠️ ADVERTENCIA: El stock está por debajo del mínimo requerido ({$productoActual['stockMinimo']}).";
         }
+
+        $productoActual['stockActual'] = $nuevoStockActual;
 
         $resultado = $this->productoService->actualizarProducto($idProducto, $productoActual);
 
         if ($resultado["success"]) {
-            return redirect()->back()->with('success', "Salida registrada correctamente. Nuevo stock: {$productoActual['stockActual']}{$advertencia}");
+            return redirect()->back()->with('success', "✓ Salida registrada correctamente. Nuevo stock: {$nuevoStockActual}{$advertencia}");
         } else {
             return redirect()->back()->with('error', "Error: {$resultado['error']}");
         }

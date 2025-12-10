@@ -28,7 +28,6 @@ class RegistrarProductoController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:255',
             'precio' => 'required|numeric|min:0.01',
-            'stock' => 'required|integer|min:0',
             'stockMinimo' => 'required|integer|min:0',
             'stockMaximo' => 'required|integer|min:0',
             'stockActual' => 'required|integer|min:0',
@@ -36,20 +35,43 @@ class RegistrarProductoController extends Controller
             'idProveedor' => 'required|integer|min:1'
         ], [
             'nombre.required' => 'El nombre del producto es obligatorio.',
+            'nombre.max' => 'El nombre no puede exceder 255 caracteres.',
             'precio.required' => 'El precio es obligatorio.',
             'precio.min' => 'El precio debe ser mayor a 0.',
-            'stock.required' => 'El stock es obligatorio.',
             'stockMinimo.required' => 'El stock mínimo es obligatorio.',
+            'stockMinimo.min' => 'El stock mínimo no puede ser negativo.',
             'stockMaximo.required' => 'El stock máximo es obligatorio.',
+            'stockMaximo.min' => 'El stock máximo no puede ser negativo.',
             'stockActual.required' => 'El stock actual es obligatorio.',
+            'stockActual.min' => 'El stock actual no puede ser negativo.',
             'idCategoria.required' => 'La categoría es obligatoria.',
-            'idProveedor.required' => 'El proveedor es obligatorio.'
+            'idCategoria.min' => 'El ID de categoría debe ser válido.',
+            'idProveedor.required' => 'El proveedor es obligatorio.',
+            'idProveedor.min' => 'El ID de proveedor debe ser válido.'
         ]);
+
+        // Validación adicional: stockActual debe estar entre stockMinimo y stockMaximo
+        if ($request->input('stockActual') < $request->input('stockMinimo')) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'El stock actual no puede ser menor al stock mínimo.');
+        }
+
+        if ($request->input('stockActual') > $request->input('stockMaximo')) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'El stock actual no puede ser mayor al stock máximo.');
+        }
+
+        if ($request->input('stockMinimo') > $request->input('stockMaximo')) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'El stock mínimo no puede ser mayor al stock máximo.');
+        }
 
         $producto = [
             "nombre" => $request->input('nombre'),
             "precio" => $request->input('precio'),
-            "stock" => $request->input('stock'),
             "stockMinimo" => $request->input('stockMinimo'),
             "stockMaximo" => $request->input('stockMaximo'),
             "stockActual" => $request->input('stockActual'),
@@ -63,7 +85,9 @@ class RegistrarProductoController extends Controller
         if ($resultado["success"]) {
             return redirect()->back()->with('success', 'Producto agregado correctamente.');
         } else {
-            return redirect()->back()->with('error', "Error: {$resultado['error']}");
+            return redirect()->back()
+                ->withInput()
+                ->with('error', "Error: {$resultado['error']}");
         }
     }
 }
