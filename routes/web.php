@@ -146,3 +146,13 @@ Route::get('/inicio-bloqueado', function () {
 // EMPLEADOS PROVEEDORES
 Route::get('/empleado/proveedores', [ProveedoresEmpleadoController::class, 'index'])
     ->name('empleado.proveedores.consultar');
+
+    //reset password
+Route::get('/forgot-password', function () {
+    return view('Login.forgot-password');
+})->name('password.request');
+
+Route::get('/reset-password', function () {
+    return view('Login.reset-password');
+})->name('password.reset');
+
