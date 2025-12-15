@@ -11,11 +11,11 @@
  
 <body>
 
-
-  <video autoplay muted loop class="video-fondo">
+ <!-- Video de fondo -->
+  <video autoplay muted loop playsinline class="video-fondo">
     <source src="{{ asset('videos/imageninicios.mp4') }}" type="video/mp4">
-  </video>
-
+  </video> 
+ 
   
   <div class="overlay"></div>
 
@@ -73,12 +73,13 @@
     </form>
 
     <div class="enlaces">
-      <a href="{{ url('/') }}" class="volver">
-        <img src="{{ asset('imagenes/salida.webp') }}" alt="Salida" width="20" height="20"> 
+      <a href="{{ url('inicio-bloqueado') }}" class="volver">
         Volver al inicio
       </a>
+
       <a href="{{ url('/forgot-password') }}" class="olvide">
         <img src="{{ asset('imagenes/interrogacion.webp') }}" alt="Interrogación" width="20" height="20"> 
+
         ¿Olvidaste tu contraseña?
       </a>
       <a href="{{ route('registro') }}" class="registro">

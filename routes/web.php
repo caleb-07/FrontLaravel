@@ -10,7 +10,9 @@ use App\Http\Controllers\EntradaProductoController;
 use App\Http\Controllers\SalidaProductoController;
 use App\Http\Controllers\RegistrarProductoController;
 use App\Http\Controllers\LoginController;
-
+use App\Http\Controllers\DashboardAdministradorController;
+use App\Http\Controllers\DashboardEmpleadoController;
+use App\Http\Controllers\ProveedoresEmpleadoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,14 +36,12 @@ Route::get('/registro', function () {
 })->name('registro');
 
 
-Route::get('/inicio-administrador', function () {
-    return view('Administrador.inicio-administrador');
-})->name('inicio.administrador');
+Route::get('/inicio-administrador', [DashboardAdministradorController::class, 'index'])
+    ->name('inicio.administrador');
 
 
-Route::get('/inicio-empleado', function () {
-    return view('Empleado.inicio-empleado');
-})->name('inicio.empleado');
+Route::get('/inicio-empleado', [DashboardEmpleadoController::class, 'index'])
+    ->name('inicio.empleado');
 
     // Movimientos
 Route::get('/consultar-movimiento', [MovimientosController::class, 'consultarMovimientos'])
@@ -143,6 +143,10 @@ Route::get('/inicio-bloqueado', function () {
     return view('inicio.inicio-bloqueado');
 })->name('inicio.bloqueado');
 
+// EMPLEADOS PROVEEDORES
+Route::get('/empleado/proveedores', [ProveedoresEmpleadoController::class, 'index'])
+    ->name('empleado.proveedores.consultar');
+
     //reset password
 Route::get('/forgot-password', function () {
     return view('Login.forgot-password');
@@ -151,3 +155,4 @@ Route::get('/forgot-password', function () {
 Route::get('/reset-password', function () {
     return view('Login.reset-password');
 })->name('password.reset');
+

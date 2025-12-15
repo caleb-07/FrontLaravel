@@ -6,17 +6,16 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5)),
-              linear-gradient(135deg, #667eea 0%, #764ba2 50%, #4e54c8 100%);
-  background-size: cover;
-  background-attachment: fixed;
+  font-family: 'Outfit', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
-  padding: 20px;
-  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px;
+  color: white;
+  position: relative;
+  overflow-x: hidden;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
 }
 
 /* CONTENEDOR DEL FORMULARIO */
@@ -36,19 +35,14 @@ body {
 .registro-container h2 {
   text-align: center;
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 800;
   margin-bottom: 30px;
-  text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-}
-
-.registro-container h2 img {
-  width: 24px;
-  height: 24px;
-  filter: invert(1); /* Para que el icono sea blanco si es necesario */
+  letter-spacing: 0.5px;
 }
 
 /* FORMULARIO */
@@ -63,19 +57,20 @@ label {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1rem;
   margin-bottom: 5px;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 label svg {
   width: 16px;
   height: 16px;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
 }
 
-/* INPUTS Y SELECT */
-input, select {
+/* INPUTS */
+input {
   width: 100%;
   padding: 12px 15px;
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -85,9 +80,10 @@ input, select {
   color: white;
   font-size: 1rem;
   transition: all 0.3s ease;
+  font-weight: 500;
 }
 
-input:focus, select:focus {
+input:focus {
   outline: none;
   border-color: rgba(255, 255, 255, 0.6);
   background: rgba(255, 255, 255, 0.25);
@@ -96,18 +92,19 @@ input:focus, select:focus {
 
 input::placeholder {
   color: rgba(255, 255, 255, 0.7);
+  font-weight: 400;
 }
 
 /* BOTON */
 button {
   width: 100%;
   padding: 14px;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 25px;
   color: white;
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
@@ -115,52 +112,47 @@ button {
   justify-content: center;
   gap: 8px;
   margin-top: 10px;
+  box-shadow: 0 6px 30px rgba(102, 126, 234, 0.5);
+  letter-spacing: 0.5px;
 }
 
 button:hover {
-  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 40px rgba(102, 126, 234, 0.7);
   border-color: rgba(255, 255, 255, 0.5);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-button img {
-  width: 18px;
-  height: 18px;
-  filter: invert(1); /* Para que el icono sea blanco */
-}
-
-/* ENLACE DE VUELTA */
+/* ENLACE VOLVER */
 .volver {
-  display: block;
-  text-align: center;
-  margin-top: 25px;
-  color: rgba(255, 255, 255, 0.8);
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  margin-top: 25px;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .volver:hover {
   color: white;
   transform: translateY(-2px);
-}
-
-.volver img {
-  width: 16px;
-  height: 16px;
-  filter: invert(1); /* Para que el icono sea blanco */
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
 }
 
 /* ANIMACIONES */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
@@ -179,7 +171,7 @@ button img {
     font-size: 1.7rem;
   }
 
-  input, select {
+  input {
     padding: 10px 12px;
     font-size: 0.95rem;
   }
@@ -188,4 +180,59 @@ button img {
     padding: 12px;
     font-size: 1rem;
   }
+
+  .volver {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .registro-container {
+    padding: 25px 15px;
+  }
+
+  .registro-container h2 {
+    font-size: 1.5rem;
+    gap: 8px;
+  }
+
+  input {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  button {
+    padding: 11px;
+    font-size: 0.95rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+
+  .volver {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+  }
+}
+
+.video-fondo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8));
+  z-index: -1;
 }
