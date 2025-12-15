@@ -11,6 +11,13 @@
 
 <body>
 
+ <!-- Video de fondo -->
+  <video autoplay muted loop playsinline class="video-fondo">
+    <source src="{{ asset('videos/imageninicios.mp4') }}" type="video/mp4">
+  </video>
+
+  <div class="overlay"></div>
+
   <!-- CONTENEDOR DEL FORMULARIO -->
   <div class="registro-container">
     <h2><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
@@ -82,9 +89,13 @@
       <button type="submit"> Registrarse</button>
     </form>
 
-    <a href="{{ route('login') }}" class="volver"> ← Volver al login
-    </a>
-  </div>
+    <div class="enlaces">
+      <a href="{{ url('inicio-bloqueado') }}" class="volver">
+        Volver al inicio
+      </a>
+
+      
+  
 
 </body>
 
