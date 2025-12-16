@@ -14,13 +14,25 @@ class ProductoController extends Controller
         $this->productoService = new ProductoService();
     }
 
-    // Consultar inventario
+    // Consultar inventario (ADMIN)
     public function consultar()
     {
         $mensaje = "";
         $productos = $this->productoService->obtenerProductos();
 
         return view('productos.consultar', [
+            'productos' => $productos,
+            'mensaje' => $mensaje
+        ]);
+    }
+
+    // Consultar inventario (EMPLEADO) - SIN botones de editar/eliminar
+    public function consultarEmpleado()
+    {
+        $mensaje = "";
+        $productos = $this->productoService->obtenerProductos();
+
+        return view('Empleado.consultar-productos-empleado', [
             'productos' => $productos,
             'mensaje' => $mensaje
         ]);
