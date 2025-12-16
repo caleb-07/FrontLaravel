@@ -13,6 +13,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardAdministradorController;
 use App\Http\Controllers\DashboardEmpleadoController;
 use App\Http\Controllers\ProveedoresEmpleadoController;
+use App\Http\Controllers\MovimientosEmpleadoController;
+use App\Http\Controllers\DevolucionesEmpleadoController;
 
 Route::get('/', function () {
     return view('welcome');
