@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-    //Login
+
 Route::get('/login', function () {
     return view('Login.login');
 })->name('login');
@@ -30,20 +30,30 @@ Route::get('/logout', function () {
     return redirect()->route('login')->with('success', 'Sesión cerrada correctamente');
 })->name('logout');
 
-//REGISTRO DE USUARIOS
 Route::get('/registro', function () {
     return view('Login.registro'); 
 })->name('registro');
+
+Route::get('/forgot-password', function () {
+    return view('Login.forgot-password');
+})->name('password.request');
+
+Route::get('/reset-password', function () {
+    return view('Login.reset-password');
+})->name('password.reset');
 
 
 Route::get('/inicio-administrador', [DashboardAdministradorController::class, 'index'])
     ->name('inicio.administrador');
 
-
 Route::get('/inicio-empleado', [DashboardEmpleadoController::class, 'index'])
     ->name('inicio.empleado');
 
-    // Movimientos
+Route::get('/inicio-bloqueado', function () {
+    return view('inicio.inicio-bloqueado');
+})->name('inicio.bloqueado');
+
+
 Route::get('/consultar-movimiento', [MovimientosController::class, 'consultarMovimientos'])
     ->name('consultar.movimiento');
 
@@ -53,8 +63,6 @@ Route::get('/modulo-movimiento', function () {
 
 Route::post('/movimientos/eliminar', [MovimientosController::class, 'eliminar'])
     ->name('movimientos.eliminar');
-
-    // Devoluciones
 
 Route::get('/registrar-devolucion', [DevolucionesController::class, 'index'])
     ->name('registrar.devolucion');
@@ -67,8 +75,7 @@ Route::post('/devoluciones/actualizar', [DevolucionesController::class, 'update'
 
 Route::post('/devoluciones/eliminar', [DevolucionesController::class, 'destroy'])
     ->name('devoluciones.destroy');
-    
-// MODULO USUARIOS
+
 Route::get('/modulo-usuarios', function () {
     return view('Modulo-usuarios.modulo-usuarios');
 })->name('modulo.usuarios');
@@ -85,7 +92,7 @@ Route::match(['post', 'put'], '/usuarios/actualizar', [UsuariosController::class
 Route::post('/usuarios/eliminar', [UsuariosController::class, 'destroy'])
     ->name('usuarios.destroy');
 
-    // PROVEEDORES
+
 Route::get('/gestion-proveedores', [ProveedoresController::class, 'index'])
     ->name('proveedores.gestion');
 
@@ -98,7 +105,6 @@ Route::post('/proveedores/actualizar', [ProveedoresController::class, 'update'])
 Route::post('/proveedores/eliminar', [ProveedoresController::class, 'destroy'])
     ->name('proveedores.destroy');
 
-// PRODUCTOS
 
 Route::get('/productos/gestion', function () {
     return view('productos.gestion');
@@ -119,13 +125,11 @@ Route::get('/productos/entrada', [EntradaProductoController::class, 'mostrarForm
 Route::post('/productos/entrada', [EntradaProductoController::class, 'registrarEntrada'])
     ->name('productos.entrada.registrar');
 
-
 Route::get('/productos/salida', [SalidaProductoController::class, 'mostrarFormulario'])
     ->name('productos.salida');
 
 Route::post('/productos/salida', [SalidaProductoController::class, 'registrarSalida'])
     ->name('productos.salida.registrar');
-
 
 Route::get('/productos/registrar', [RegistrarProductoController::class, 'mostrarFormulario'])
     ->name('productos.registrar');
@@ -134,25 +138,20 @@ Route::post('/productos/registrar', [RegistrarProductoController::class, 'regist
     ->name('productos.registrar.guardar');
 
 
-Route::get('/interfaz-caleb', function () {
-    return view('Interfaz-caleb.interfaz');
-})->name('interfaz.caleb');
-    
-    //inicio bloqueado
-Route::get('/inicio-bloqueado', function () {
-    return view('inicio.inicio-bloqueado');
-})->name('inicio.bloqueado');
-
-// EMPLEADOS PROVEEDORES
 Route::get('/empleado/proveedores', [ProveedoresEmpleadoController::class, 'index'])
     ->name('empleado.proveedores.consultar');
 
-    //reset password
-Route::get('/forgot-password', function () {
-    return view('Login.forgot-password');
-})->name('password.request');
 
-Route::get('/reset-password', function () {
-    return view('Login.reset-password');
-})->name('password.reset');
+Route::get('/empleado/productos/consultar', [ProductoController::class, 'consultarEmpleado'])
+    ->name('empleado.productos.consultar');
 
+
+Route::get('/empleado/productos/salida', [SalidaProductoController::class, 'mostrarFormularioEmpleado'])
+    ->name('empleado.productos.salida');
+
+Route::post('/empleado/productos/salida', [SalidaProductoController::class, 'registrarSalida'])
+    ->name('empleado.productos.salida.registrar');
+
+Route::get('/interfaz-caleb', function () {
+    return view('Interfaz-caleb.interfaz');
+})->name('interfaz.caleb');
