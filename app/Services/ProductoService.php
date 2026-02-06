@@ -11,9 +11,6 @@ class ProductoService
         return session('token');
     }
 
-    /* =========================
-       GET PRODUCTOS
-    ==========================*/
     public function obtenerProductos(): array
     {
         $token = $this->obtenerToken();
@@ -23,8 +20,8 @@ class ProductoService
 
         curl_setopt_array($curl, [
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT => 5,               // 🔥 CLAVE
-            CURLOPT_CONNECTTIMEOUT => 3,         // 🔥 CLAVE
+            CURLOPT_TIMEOUT => 5,               
+            CURLOPT_CONNECTTIMEOUT => 3,      
             CURLOPT_HTTPHEADER => [
                 'Authorization: Bearer ' . $token
             ]
@@ -45,9 +42,7 @@ class ProductoService
         return json_decode($respuesta, true) ?? [];
     }
 
-    /* =========================
-       PUT ACTUALIZAR PRODUCTO
-    ==========================*/
+    
     public function actualizarProducto(int $id, array $producto): array
     {
         $token = $this->obtenerToken();
@@ -63,8 +58,8 @@ class ProductoService
             CURLOPT_CUSTOMREQUEST => "PUT",
             CURLOPT_POSTFIELDS => $dataJson,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT => 5,               // 🔥 CLAVE
-            CURLOPT_CONNECTTIMEOUT => 3,         // 🔥 CLAVE
+            CURLOPT_TIMEOUT => 5,               
+            CURLOPT_CONNECTTIMEOUT => 3,       
             CURLOPT_HTTPHEADER => [
                 'Content-Type: application/json',
                 'Authorization: Bearer ' . $token,
@@ -87,4 +82,45 @@ class ProductoService
             ? ["success" => true]
             : ["success" => false, "error" => "HTTP $httpCode"];
     }
+    public function agregarProducto(array $producto): array
+{
+    $token = $this->obtenerToken();
+    if (!$token) {
+        return ["success" => false, "error" => "No hay sesión activa"];
+    }
+
+    $dataJson = json_encode($producto);
+
+    $curl = curl_init($this->apiUrl);
+
+    curl_setopt_array($curl, [
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => $dataJson,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 5,               
+        CURLOPT_CONNECTTIMEOUT => 3,       
+        CURLOPT_HTTPHEADER => [
+            'Content-Type: application/json',
+            'Authorization: Bearer ' . $token,
+            'Content-Length: ' . strlen($dataJson)
+        ]
+    ]);
+
+    $respuesta = curl_exec($curl);
+
+    if (curl_errno($curl)) {
+        $error = curl_error($curl);
+        curl_close($curl);
+        return ["success" => false, "error" => $error];
+    }
+
+    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    curl_close($curl);
+
+    if ($httpCode === 201 || $httpCode === 200) {
+        return ["success" => true];
+    }
+
+    return ["success" => false, "error" => "HTTP $httpCode"];
+}
 }

@@ -16,6 +16,7 @@ use App\Http\Controllers\ProveedoresEmpleadoController;
 use App\Http\Controllers\MovimientosEmpleadoController;
 use App\Http\Controllers\DevolucionesEmpleadoController;
 
+
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -157,3 +158,7 @@ Route::post('/empleado/productos/salida', [SalidaProductoController::class, 'reg
 Route::get('/interfaz-caleb', function () {
     return view('Interfaz-caleb.interfaz');
 })->name('interfaz.caleb');
+
+Route::get('/empleado/devoluciones/registrar', [DevolucionesEmpleadoController::class, 'index'])->name('empleado.devoluciones.consultar');
+
+Route::get('/empleado/movimientos/consultar', [MovimientosEmpleadoController::class, 'consultarMovimientos'])->name('empleado.movimientos.consultar');

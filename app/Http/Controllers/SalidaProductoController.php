@@ -14,9 +14,6 @@ class SalidaProductoController extends Controller
         $this->productoService = new ProductoService();
     }
 
-    // =========================
-    // SALIDA PRODUCTO (ADMIN)
-    // =========================
     public function mostrarFormulario()
     {
         $productos = $this->obtenerProductosActivos();
@@ -26,9 +23,7 @@ class SalidaProductoController extends Controller
         ]);
     }
 
-    // =========================
-    // SALIDA PRODUCTO (EMPLEADO)
-    // =========================
+   
     public function mostrarFormularioEmpleado()
     {
         $productos = $this->obtenerProductosActivos();
@@ -38,9 +33,7 @@ class SalidaProductoController extends Controller
         ]);
     }
 
-    // =========================
-    // REGISTRAR SALIDA (AMBOS)
-    // =========================
+   
     public function registrarSalida(Request $request)
     {
         $request->validate([
@@ -72,7 +65,7 @@ class SalidaProductoController extends Controller
         if ($productoActual['stockActual'] < $cantidad) {
             return back()->withInput()->with(
                 'error',
-                "❌ Stock insuficiente. Disponible: {$productoActual['stockActual']}"
+                " Stock insuficiente. Disponible: {$productoActual['stockActual']}"
             );
         }
 
@@ -81,7 +74,7 @@ class SalidaProductoController extends Controller
 
         $advertencia = '';
         if ($nuevoStock < $productoActual['stockMinimo']) {
-            $advertencia = " ⚠️ Stock por debajo del mínimo ({$productoActual['stockMinimo']}).";
+            $advertencia = " Stock por debajo del mínimo ({$productoActual['stockMinimo']}).";
         }
 
         $resultado = $this->productoService->actualizarProducto($idProducto, $productoActual);
@@ -96,9 +89,7 @@ class SalidaProductoController extends Controller
         return back()->with('error', 'Error al registrar la salida.');
     }
 
-    // =========================
-    // UTILIDAD
-    // =========================
+  
     private function obtenerProductosActivos()
     {
         return array_filter(

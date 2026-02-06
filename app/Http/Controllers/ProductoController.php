@@ -14,7 +14,7 @@ class ProductoController extends Controller
         $this->productoService = new ProductoService();
     }
 
-    // Consultar inventario (ADMIN)
+  
     public function consultar()
     {
         $mensaje = "";
@@ -26,7 +26,7 @@ class ProductoController extends Controller
         ]);
     }
 
-    // Consultar inventario (EMPLEADO) - SIN botones de editar/eliminar
+    
     public function consultarEmpleado()
     {
         $mensaje = "";
@@ -38,7 +38,7 @@ class ProductoController extends Controller
         ]);
     }
 
-    // Actualizar producto
+   
     public function actualizar(Request $request)
     {
         $request->validate([
@@ -64,17 +64,17 @@ class ProductoController extends Controller
         $mensaje = "";
         $tipo_mensaje = 'error';
 
-        // Validaciones adicionales
+        
         if ($request->input('stockMinimo') > $request->input('stockMaximo')) {
             return redirect()->back()->with('error', 'El stock mínimo no puede ser mayor al stock máximo.');
         }
 
         if ($request->input('stockActual') < $request->input('stockMinimo')) {
-            $mensaje = " ⚠️ ADVERTENCIA: El stock actual está por debajo del mínimo.";
+            $mensaje = "  ADVERTENCIA: El stock actual está por debajo del mínimo.";
         }
 
         if ($request->input('stockActual') > $request->input('stockMaximo')) {
-            $mensaje = " ⚠️ ADVERTENCIA: El stock actual excede el máximo permitido.";
+            $mensaje = "  ADVERTENCIA: El stock actual excede el máximo permitido.";
         }
 
         $producto = [
@@ -106,7 +106,7 @@ class ProductoController extends Controller
         ]);
     }
 
-    // Desactivar producto
+
     public function desactivar(Request $request)
     {
         $id = intval($request->input('id', 0));
