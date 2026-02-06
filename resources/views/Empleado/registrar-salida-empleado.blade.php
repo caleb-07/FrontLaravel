@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/styleproductos.css') }}">
 </head>
 <body>
-    <!-- BOTÓN VOLVER ARRIBA -->
+ 
     <div class="header-nav" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <a href="{{ route('inicio.empleado') }}" class="back-button" style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="vertical-align: middle; margin-right: 5px;">
